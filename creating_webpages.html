@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>	
+	
+		<title>Creating</title>
+		
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	
+		<link type="text/css" rel="stylesheet" href="style.css" media="screen">
+		
+		<script type="text/javascript" language="javascript" href="test.js"></script>
+		
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link type="text/css" rel="stylesheet" href="test.css" media="screen">
+		
+		<link href="https://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" rel="shortcut icon">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+		<style>
+        html {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .outline {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            bottom: 20px;
+            right: 20px;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+
+        .myTabs {
+            position: absolute;
+            top: 40px;
+            bottom: 0;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            border: 0;
+        }
+
+        .content {
+            position: absolute;
+            padding: 5px;
+            margin: 0;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            border: 0;
+            font-family: "Courier New", Courier, monospace;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10pt;
+            line-height: normal;
+        }
+
+        .content p {
+            padding: 0;
+            margin: 0;
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            border: 0;
+        }
+    </style>
+
+	</head>
+	
+	<body>
+		
+			
+		<div class="navbar">
+			<a href="index.html">Homepage</a>
+			<a href="creating_webpages.html">Creating</a>			
+			<a href="html.html">HTML</a>
+ 			<a href="css.html">CSS</a>
+	</div>
+
+	<div align="center">
+		
+	<h1>Creating a webpage!</h1>
+		
+	<p>Welcome to the in webpage code editor, use this to try out your coding skills. If you wish to use this for Javascript as well</p>
+	<!--
+Based on:
+* This simple web editor (https://github.com/bhskt/simpleWebEditor) that I found on this link (https://www.quora.com/How-can-we-create-an-online-TryIt-Editor-for-HTML-CSS-Javascript-etc-just-like-w3schools-or-tutorialspoint-com) - thanks Bhaskar Tiwari;
+* This W3C school page on Tabs (https://www.w3schools.com/w3css/w3css_tabulators.asp) which uses W3.CSS described here (https://www.w3schools.com/w3css/default.asp) – shows how to link to their public CSS;
+* And this good article on CSS positioning (https://learn.shayhowe.com/advanced-html-css/detailed-css-positioning/);
+* A lunch time playing with CSS to make it look nicer.
+-->
+
+<div class="w3-border outline">
+    <div class="w3-bar w3-border-bottom w3-light-grey intronav myButtons">
+        <button class="w3-bar-item w3-button tablink w3-red" onclick="openTab(event, 'thtml')">HTML</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'tcss')">CSS</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'tjs')">JS</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'toutput')">Preview</button>
+    </div>
+    <div class="myTabs">
+        <div class="editor" id="thtml">
+            <div id="html" class="content" contenteditable></div>
+        </div>
+        <div class="editor" id="tcss" style="display: none">
+            <div id="css" class="content" contenteditable></div>
+        </div>
+        <div class="editor" id="tjs" style="display: none">
+            <div id="js" class="content" contenteditable></div>
+        </div>
+        <div class="editor" id="toutput" style="display: none">
+            <iframe id="output"></iframe>
+        </div>
+    </div>
+</div>
+<script>
+    function openTab(evt, tabName) {
+        var i, x, tablinks;
+
+        x = document.getElementsByClassName("editor");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " w3-red";
+    }
+
+    window.onload = function () {
+        var html = document.getElementById("html"),
+            css = document.getElementById("css"),
+            js = document.getElementById("js"),
+            output = document.getElementById("output"),
+            working = false,
+            fill = function () {
+                if (working) {
+                    return false;
+                }
+                working = true;
+                var document = output.contentDocument,
+                    style = document.createElement("style"),
+                    script = document.createElement("script");
+                document.body.innerHTML = html.textContent;
+                style.innerHTML = css.textContent.replace(/\s/g, "");
+                script.innerHTML = js.textContent;
+                document.body.appendChild(style);
+                document.body.appendChild(script);
+                working = false;
+            };
+        html.onkeyup = fill;
+        css.onkeyup = fill;
+        js.onkeyup = fill;
+    }
+</script>
+
+		</div>	
+	</body>
+</html>
